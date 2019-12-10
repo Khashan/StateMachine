@@ -6,13 +6,16 @@
         private EnterState m_Enter;
         private UpdateState m_Update;
         private ExitState m_Exit;
+        private bool m_SkipFirstUpdate;
+        private bool m_FirstUpdateSkipped;
 
-        public State(int aId, EnterState aEnter, UpdateState aUpdate, ExitState aExit)
+        public State(int aId, EnterState aEnter, UpdateState aUpdate, ExitState aExit, bool aSkipFirstUpdate)
         {
             m_StateId = aId;
             m_Enter = aEnter;
             m_Update = aUpdate;
             m_Exit = aExit;
+            m_SkipFirstUpdate = true;
         }
 
         public int GetStateId()
@@ -30,6 +33,12 @@
 
         public void Update()
         {
+            if(m_SkipFirstUpdate && !m_FirstUpdateSkipped)
+            {
+                m_FirstUpdateSkipped = true;
+                return;
+            }
+
             if (m_Update != null)
             {
                 m_Update();

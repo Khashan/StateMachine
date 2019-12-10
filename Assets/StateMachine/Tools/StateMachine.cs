@@ -1,4 +1,12 @@
-﻿namespace Anderson.Tools
+﻿/*
+StateMachine
+Original Author: Simon Anderson
+https://github.com/Khashan/StateMachine/tree/master
+
+License: MIT - do whatever you want.
+*/
+
+namespace Anderson.Tools
 {
     public delegate void EnterState();
     public delegate void UpdateState();
@@ -20,9 +28,9 @@
             m_StateMachineSize = aSizeState;
         }
 
-        public void AddState(int aStateId, EnterState aEnter, UpdateState aUpdate, ExitState aExit)
+        public void AddState(int aStateId, EnterState aEnter, UpdateState aUpdate, ExitState aExit, bool aSkipFirstUpdate = false)
         {
-            m_AllStates[aStateId] = new State(aStateId, aEnter, aUpdate, aExit);
+            m_AllStates[aStateId] = new State(aStateId, aEnter, aUpdate, aExit, aSkipFirstUpdate);
         }
 
         public void ChangeState(int aStateId)
